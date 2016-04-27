@@ -11,7 +11,7 @@ while true ; do
   echo "$(date) Checking Plex status"
   movieId=$(curl 'http://127.0.0.1:32400/library/sections/1/all/' 2> /dev/null | grep -m 1 ratingKey | grep -o '\bratingKey="[^"]*"' | cut -d '"' -f 2)
   
-  if [ "$(curl 'http://127.0.0.1:32400/library/metadata/4744?checkFiles=1' 2> /dev/null | grep -m 1 'Part accessible' | grep -o '\baccessible="[^"]*"' | cut -d '"' -f 2)" == "1" ] ; then
+  if [ "$(curl 'http://127.0.0.1:32400/library/metadata/'$movieId'?checkFiles=1' 2> /dev/null | grep -m 1 'Part accessible' | grep -o '\baccessible="[^"]*"' | cut -d '"' -f 2)" == "1" ] ; then
     echo "$(date) Plex status shows UP for movie ID: $movieId"
     echo "$(date) Sending up status"
 #    $VMW_BINARY markActive
